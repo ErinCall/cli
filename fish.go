@@ -161,7 +161,7 @@ func (a *App) prepareFishFlags(flags []Flag, previousCommands []string) []string
 func fishAddFileFlag(flag Flag, completion *strings.Builder) {
 	val := reflect.ValueOf(flag)
 	// if flag is a non-nil pointer to a struct...
-	if val.Kind() != reflect.Invalid && val.Elem().Kind() == reflect.Struct {
+	if val.Kind() == reflect.Ptr && val.Elem().Kind() == reflect.Struct {
 		field := val.Elem().FieldByName("TakesFile")
 		// if flag's underlying type has a bool field called TakesFile, whose value is true...
 		if field.Kind() == reflect.Bool && field.Bool() {
